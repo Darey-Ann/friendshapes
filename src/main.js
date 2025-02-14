@@ -126,7 +126,7 @@ function addTitleText() {
     title.style.top = '20px';
     title.style.left = '5%';
     //title.style.transform = 'translateX(-50%)';
-    title.style.pointerEvents = 'none';
+    //title.style.pointerEvents = 'none';
     document.body.appendChild(title);
     
     // Create the infobox for OrbitControls instructions
