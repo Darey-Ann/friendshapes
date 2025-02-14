@@ -77,7 +77,7 @@ function init() {
     
     // Add Lights
     scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-    const light = new THREE.DirectionalLight(0xffffff, 1);
+    const light = new THREE.DirectionalLight(0xffffff, 0.5); // lower light intensity
     light.position.set(3, 3, 3).normalize();
     scene.add(light);
 

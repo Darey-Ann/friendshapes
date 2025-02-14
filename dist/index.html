@@ -2,12 +2,43 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/friendshapes/assets/vite-DcBtz0py.svg" />
+    <link rel="icon" type="image/svg+xml" href="/friendshapes/assets/bb-BAOg2bOm.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Superquadric Friend Shapes</title>
-    <script type="module" crossorigin src="/friendshapes/assets/index-BZxnBYer.js"></script>
+    <title>Friend Shapes</title>
+    <script type="module" crossorigin src="/friendshapes/assets/index-2UKE62vi.js"></script>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app"></div>
+    <!-- Load THREE.js as a regular script to make it globally available -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.min.js"></script>
+
+
+   <!-- Wait for THREE.js to be ready before loading OrbitControls -->
+    <script>
+      if (window.THREE) {
+        const scriptOrbitControls = document.createElement('script');
+        scriptOrbitControls.src = 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js';
+        scriptOrbitControls.onload = () => {
+          // Initialize OrbitControls only after it has been loaded
+          console.log('OrbitControls loaded');
+        };
+        document.head.appendChild(scriptOrbitControls);
+  
+        // Similarly, load STLExporter
+        const scriptSTLExporter = document.createElement('script');
+        scriptSTLExporter.src = 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/exporters/STLExporter.js';
+        scriptSTLExporter.onload = () => {
+          // Initialize STLExporter only after it has been loaded
+          console.log('STLExporter loaded');
+        };
+        document.head.appendChild(scriptSTLExporter);
+      } else {
+        console.error('THREE.js is not loaded');
+      }
+    </script>
+
+    <!-- Import GUI as a module -->
+    
+    <!-- My main js script-->
   </body>
 </html>
