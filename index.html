@@ -17,6 +17,7 @@
       if (window.THREE) {
         const scriptOrbitControls = document.createElement('script');
         scriptOrbitControls.src = 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js';
+        window.OrbitControls = THREE.OrbitControls;
         scriptOrbitControls.onload = () => {
           // Initialize OrbitControls only after it has been loaded
           console.log('OrbitControls loaded');
