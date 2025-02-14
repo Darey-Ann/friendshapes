@@ -9,8 +9,8 @@ export default defineConfig({
     //commonjsOptions: {
     //  transformMixedEsModules: true, // Fixes issues with Three.js
     //},
+    optimizeDeps: {
+      include: ['three', 'lil-gui'], // Force Vite to pre-bundle Three.js
+    }
   },
-  optimizeDeps: {
-    include: ['three', 'lil-gui'], // Force Vite to pre-bundle Three.js
-  }
 });
