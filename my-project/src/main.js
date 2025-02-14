@@ -14,16 +14,19 @@ let params = {
     wireframe: false, 
     randomness: 0.5, 
     spikiness: 0,    
-    asymmetry: 0
+    asymmetry: 0,
+    bulge: 0,
+    indentations: 0,
+    color: '#fcc2ec'  // Default color
 };
 
 const shapePresets = {
-    sphere: { roundness: 2, stretch: 2 },
-    cube: { roundness: 10, stretch: 10 },
-    cylinder: { roundness: 2, stretch: 10 },
-    cone: { roundness: 1, stretch: 0.2 },
-    torus: { roundness: 1, stretch: 0.8 },
-    pyramid: { roundness: 1.5, stretch: 0.5 }
+    sphere: { roundness: 2, stretch: 2, bulge: 0, randomness: 0, spikiness: 0, asymmetry: 0 },
+    cube: { roundness: 10, stretch: 10, bulge: 0, randomness: 0, spikiness: 0, asymmetry: 0 },
+    cylinder: { roundness: 2, stretch: 10, bulge: 0, randomness: 0, spikiness: 0, asymmetry: 0 },
+    octahedron: { roundness: 1, stretch: 1, bulge: 0, randomness: 0, spikiness: 0, asymmetry: 0 },
+    //torus: { roundness: 1, stretch: 0.8 },
+    //pyramid: { roundness: 1.5, stretch: 0.5 }
 };
 
 init();
@@ -33,7 +36,11 @@ function init() {
     // Scene & Camera
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 15, 50);
+    camera.position.set(20, 20, 50);
+    //scene.position.y = -5;  // Moves everything in the scene down
+    
+
+
     
     // Renderer with White Background
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -61,14 +68,21 @@ function init() {
     // GUI Controls
     const gui = new GUI();
     gui.add(params, 'shape', Object.keys(shapePresets)).onChange(updateShape);
-    gui.add(params, 'roundness', 1, 10, 1).onChange(updateSuperquadric);
+    gui.add(params, 'roundness', 1, 10, 0.1).onChange(updateSuperquadric);
     gui.add(params, 'stretch', 1, 10, 1).onChange(updateSuperquadric);
     gui.add(params, 'spikiness', 0, 2, 0.1).onChange(updateSuperquadric);
     gui.add(params, 'asymmetry', 0, 1, 0.1).onChange(updateSuperquadric);
+    gui.add(params, 'bulge', 0, 10, 0.1).onChange(updateSuperquadric);
+    //gui.add(params, 'indentations', 0, 2, 0.1).onChange(updateSuperquadric);
+
+    
+    
+    //gui.add({ exportSettings }, 'exportSettings').name('Save Settings'); // called in exportSTL
+    
+    gui.addColor(params, 'color').onChange(updateColor);
 
     gui.add(params, 'wireframe').onChange(updateSuperquadric);
-    gui.add({ exportSTL }, 'exportSTL').name('Export STL');
-    gui.add({ exportSettings }, 'exportSettings').name('Save Settings');
+    gui.add({ exportSTL }, 'exportSTL').name('Export Friendshape');
 
     // Window Resize Handling
     window.addEventListener('resize', onWindowResize);
@@ -80,23 +94,63 @@ function init() {
 function addTitleText() {
     const title = document.createElement('div');
     title.innerHTML = `
-        <h1 style="text-align: center; font-size: 2rem; font-family: Inter, sans-serif; color: #333; margin-bottom: 0;">Friend Shapes</h1>
-        <p style="text-align: center; font-size: 1.2rem; font-family: Inter, sans-serif; color: #666;">Create a shape that feels safe and trustworthy to you</p>
-    `;
+        <h1 style="text-align: left; font-size: 2rem; font-family: Inter, sans-serif; color: #333; margin-bottom: 0;">Friend Shapes</h1>
+        <p style="text-align: left; font-size: 1.0rem; font-family: Inter, sans-serif; color: #666;margin-top: 0; margin-bottom: 0;">Use the sliders to create a safe and trustworthy shape</p>
+        <div id="colorPicker" style="display: flex; justify-content: left; gap: 10px; margin-top: 20px;"></div>
+    `; 
     title.style.position = 'absolute';
     title.style.top = '20px';
-    title.style.left = '50%';
+    title.style.left = '20%';
     title.style.transform = 'translateX(-50%)';
     title.style.pointerEvents = 'none';
     document.body.appendChild(title);
+
+    //addColorPicker();
 }
 
 function updateShape() {
     const preset = shapePresets[params.shape];
     params.roundness = preset.roundness;
     params.stretch = preset.stretch;
+    params.bulge = preset.bulge; 
+    params.spikiness = preset.bulge; 
+    params.asymmetry = preset.bulge; 
+    
     updateSuperquadric();
 }
+
+function updateColor() {
+    mesh.material.color.set(params.color);
+}
+
+
+function addColorPicker() {
+    const colors = ['#FFFFFF', '#A0A0A0', '#A7C7E7', '#F4A7B9', '#B4E197', '#FFE599'];
+    const colorPicker = document.getElementById('colorPicker');
+    
+    colorPicker.style.marginTop = '10px'; // Move circles down
+
+    /*
+    colors.forEach(color => {
+        let colorCircle = document.createElement('div');
+        colorCircle.style.width = '30px';
+        colorCircle.style.height = '30px';
+        colorCircle.style.borderRadius = '50%';
+        colorCircle.style.backgroundColor = color;
+        colorCircle.style.cursor = 'pointer';
+        colorCircle.style.border = '2px solid #ccc';
+
+        colorCircle.addEventListener('click', () => {
+            params.color = color;
+            if (mesh) mesh.material.color.set(color); // Fix: Update the correct mesh
+        });
+
+        colorPicker.appendChild(colorCircle);
+    });
+    */
+}
+
+
 
 function generateSuperquadricGeometry(roundness, stretch, size, randomness, spikiness) {
     const segments = 50;
@@ -108,6 +162,7 @@ function generateSuperquadricGeometry(roundness, stretch, size, randomness, spik
         for (let j = 0; j <= segments; j++) {
             let phi = (j / segments) * 2 * Math.PI;
             
+            // SUPERQUADRIC FUNCTION
             // roundness = epsilon1, stretch = epsilon2
             let x = size * Math.sign(Math.cos(theta)) * Math.pow(Math.abs(Math.cos(theta)), 2 / stretch) * Math.sign(Math.cos(phi)) * Math.pow(Math.abs(Math.cos(phi)), 2 / roundness);
             let y = size * Math.sign(Math.cos(theta)) * Math.pow(Math.abs(Math.cos(theta)), 2 / stretch) * Math.sign(Math.sin(phi)) * Math.pow(Math.abs(Math.sin(phi)), 2 / roundness);
@@ -126,6 +181,15 @@ function generateSuperquadricGeometry(roundness, stretch, size, randomness, spik
             let newY = x * Math.sin(twist) + y * Math.cos(twist);
             x = newX;
             y = newY;
+            
+            // Bulge and Indentation
+            let bulgeFactor = 1 + (params.bulge * 0.2) * Math.sin(3 * theta) * Math.cos(3 * phi);
+            let indentationFactor = 1 - (params.indentations * 0.2) * Math.sin(4 * theta) * Math.cos(4 * phi);
+
+            
+            x *= bulgeFactor * indentationFactor;
+            y *= bulgeFactor * indentationFactor;
+            z *= bulgeFactor * indentationFactor;
             
 
             positions.push(x, y, z);
@@ -159,19 +223,21 @@ function generateSuperquadricGeometry(roundness, stretch, size, randomness, spik
 function updateSuperquadric() {
   if (mesh) scene.remove(mesh);
   const geometry = generateSuperquadricGeometry(params.roundness, params.stretch, params.size, params.randomness, params.spikiness);
-  const material = new THREE.MeshStandardMaterial({ color: 0xfcc2ec, wireframe: params.wireframe });
+  const material = new THREE.MeshStandardMaterial({ color: params.color, wireframe: params.wireframe });
   mesh = new THREE.Mesh(geometry, material);
-  mesh.position.y = params.size; // Move it up by its size
+  mesh.position.y = params.size + 1; // Move it up by its size
   scene.add(mesh);
 }
 
 function exportSTL() {
+    exportSettings(); // Save slider values before exporting STL
+
     const exporter = new STLExporter();
     const stlString = exporter.parse(mesh);
     const blob = new Blob([stlString], { type: 'application/octet-stream' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'superquadric.stl';
+    link.download = 'friendshape.stl';
     link.click();
 }
 
@@ -180,7 +246,7 @@ function exportSettings() {
   const blob = new Blob([data], { type: 'text/plain' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
-  link.download = 'shape_parameters.txt';
+  link.download = 'friendshape_parameters.txt';
   link.click();
 }
 
