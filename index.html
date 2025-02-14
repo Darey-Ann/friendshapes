@@ -8,14 +8,12 @@
   </head>
   <body>
     <div id="app"></div>
-    <!-- Import THREE as a module -->
+    <!-- Load THREE as a module, this will be the only Three.js import -->
     <script type="module">
       import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.module.js';
+      window.THREE = THREE;  // Expose THREE to the global window object
     </script>
-
-    <!-- Load THREE as a regular script (not as a module) to make it globally available -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.js"></script>
-
+    
    <!-- Now load OrbitControls.js as a regular script, after THREE.js -->
    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js"></script>
    
