@@ -26,9 +26,9 @@ import { GUI } from 'https://cdn.jsdelivr.net/npm/lil-gui@0.16.0/dist/lil-gui.es
 //import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 // import OrbitControls from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js';
 // Import OrbitControls.js using the script tag, not as a module
-//import 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js';
+import 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js';
 // Import OrbitControls from the CDN directly in the module
-import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js';
+//import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js';
 
 
 //import { STLExporter } from 'three/examples/jsm/exporters/STLExporter.js';
