@@ -1,7 +1,10 @@
 //import * as THREE from "./node_modules/three/build/three.module.min.js";
-import * as THREE from 'three';
+//import * as THREE from 'three';
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.module.js';
+
 //import { GUI } from "./node_modules/lil-gui/dist/lil-gui.esm.js";
-import { GUI } from 'lil-gui';
+//import { GUI } from 'lil-gui';
+import { GUI } from 'https://cdn.jsdelivr.net/npm/lil-gui@0.16.0/dist/lil-gui.esm.js';
 
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { STLExporter } from 'three/examples/jsm/exporters/STLExporter.js';
