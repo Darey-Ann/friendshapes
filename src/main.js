@@ -1,3 +1,19 @@
+// 
+// import in index.html 
+// 
+// <!-- Will load orbitcontrols, stlexporter and gui in script -->
+// <!-- Now load OrbitControls.js as a regular script, after THREE.js -->
+// <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js"></script>
+// 
+// <!-- Now load STLExporter.js as a regular script, after THREE.js -->
+// <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/exporters/STLExporter.js"></script>
+// 
+// <!-- Import GUI as a module -->
+// <script type="module">
+//   import { GUI } from 'https://cdn.jsdelivr.net/npm/lil-gui@0.16.0/dist/lil-gui.esm.js';
+// </script>
+
+
 //import * as THREE from "./node_modules/three/build/three.module.min.js";
 //import * as THREE from 'three';
 //import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.146.0/build/three.module.js';
@@ -5,15 +21,18 @@
 
 //import { GUI } from "./node_modules/lil-gui/dist/lil-gui.esm.js";
 //import { GUI } from 'lil-gui';
-//import { GUI } from 'https://cdn.jsdelivr.net/npm/lil-gui@0.16.0/dist/lil-gui.esm.js';
+import { GUI } from 'https://cdn.jsdelivr.net/npm/lil-gui@0.16.0/dist/lil-gui.esm.js';
 
 //import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 // import OrbitControls from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js';
 // Import OrbitControls.js using the script tag, not as a module
 //import 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js';
+// Import OrbitControls from the CDN directly in the module
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js';
+
 
 //import { STLExporter } from 'three/examples/jsm/exporters/STLExporter.js';
-//import { STLExporter } from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/exporters/STLExporter.js';
+import { STLExporter } from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/exporters/STLExporter.js';
 //import 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/exporters/STLExporter.js';
 
 console.log("Vite is running!");
