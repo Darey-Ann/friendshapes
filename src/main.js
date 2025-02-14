@@ -55,11 +55,9 @@ function init() {
     // Scene & Camera
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(20, 20, 50);
-    //scene.position.y = -5;  // Moves everything in the scene down
-    
-
-
+    camera.position.set(20, 30, 40);
+    //scene.position.y = -5;  // Moves EVERYTHING in the scene down
+    //scene.position.x = -10; 
     
     // Renderer with White Background
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -74,11 +72,13 @@ function init() {
     // Add Grid Helper (Light Grey Grid)
     const gridHelper = new THREE.GridHelper(50, 50, 0xcccccc, 0xeeeeee);
     scene.add(gridHelper);
+    gridHelper.position.y = -3;  // Move the grid 5 units down
     
     // Add Lights
     scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-    const light = new THREE.DirectionalLight(0xffffff, 0.5); // lower light intensity
+    const light = new THREE.DirectionalLight(0xffffff, 0.5); // lower light intensity (0.5)
     light.position.set(3, 3, 3).normalize();
+    //light.position.set(3, 10, 3).normalize();  // Set the light to come from above
     scene.add(light);
 
     // Create Superquadric
@@ -113,9 +113,8 @@ function init() {
 function addTitleText() {
     const title = document.createElement('div');
     title.innerHTML = `
-        <h1 style="text-align: left; font-size: 2rem; font-family: Inter, sans-serif; color: #333; margin-bottom: 0;">Friend Shapes</h1>
+        <h1 style="text-align: left; font-size: 2rem; font-family: Inter, sans-serif; color: #333; margin-bottom: 0.2rem;">Friend Shapes</h1>
         <p style="text-align: left; font-size: 1.0rem; font-family: Inter, sans-serif; color: #666;margin-top: 0; margin-bottom: 0;">Use the sliders to create a safe and trustworthy shape</p>
-        <div id="colorPicker" style="display: flex; justify-content: left; gap: 10px; margin-top: 20px;"></div>
     `; 
     title.style.position = 'absolute';
     title.style.top = '20px';
@@ -123,6 +122,45 @@ function addTitleText() {
     title.style.transform = 'translateX(-50%)';
     title.style.pointerEvents = 'none';
     document.body.appendChild(title);
+    
+    // Create the infobox for OrbitControls instructions
+    const controlInfoBox = document.createElement('div');
+    controlInfoBox.innerHTML = `
+        <p style="text-align: left; font-size: 0.8rem; font-family: Inter, sans-serif; color: #666;margin-top: 0; margin-bottom: 0;">
+            <strong>Mouse Controls</strong><br>
+            Left Click:   Rotate<br>
+            Right Click:  Move<br>
+            Scroll Wheel: Resize
+        </p>
+    `;
+    controlInfoBox.style.position = 'absolute';
+    controlInfoBox.style.top = '120px';  // Position below the title
+    controlInfoBox.style.left = '15%';
+    controlInfoBox.style.transform = 'translateX(-85%)';
+
+    controlInfoBox.style.backgroundColor = '#fff';
+    controlInfoBox.style.border = '0.5px solid #ddd';
+    controlInfoBox.style.padding = '10px';
+    controlInfoBox.style.borderRadius = '8px';
+    controlInfoBox.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+    //controlInfoBox.style.fontFamily = 'Inter, sans-serif';
+    document.body.appendChild(controlInfoBox);
+
+
+    // create instructional note
+    const note = document.createElement('div');
+    note.innerHTML = `
+        <p style="text-align: right; font-size: 0.7rem; font-family: Inter, sans-serif; color: #333; background-color: #fff; padding: 10px; border: ">
+            <em>* When you're finished, please click "Export Friendshape" to save your .stl and .txt files,<br>and then send them to Darey-Ann! Thank you 🤍
+        </p>
+    `;
+    note.style.position = 'fixed';
+    note.style.bottom = '20px';  // Positioned at the bottom
+    note.style.right = '20px';   // Positioned at the right
+    note.style.zIndex = '9999';  // Ensures it's above other content
+    document.body.appendChild(note);
+
+    
 
     //addColorPicker();
 }
@@ -244,7 +282,7 @@ function updateSuperquadric() {
   const geometry = generateSuperquadricGeometry(params.roundness, params.stretch, params.size, params.randomness, params.spikiness);
   const material = new THREE.MeshStandardMaterial({ color: params.color, wireframe: params.wireframe });
   mesh = new THREE.Mesh(geometry, material);
-  mesh.position.y = params.size + 1; // Move it up by its size
+  mesh.position.y = params.size - 2; // position of the object
   scene.add(mesh);
 }
 
