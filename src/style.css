@@ -22,7 +22,7 @@ a:hover {
   color: #535bf2;
 }
 
-body {
+html, body {
   margin: 0;
   display: flex;
   place-items: center;
@@ -31,16 +31,27 @@ body {
   overflow: hidden;
 }
 
+* {
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
 h1 {
-  font-size: 3.2em;
+  font-size: 8vw; /* Adjust size based on viewport width */
   line-height: 1.1;
+  max-width: 100%;  /* Ensure text stays within the screen width */
+  word-wrap: break-word; /* Wrap text if it exceeds width */
+}
+
+p {
+  word-wrap: break-word; /* Prevent long text from breaking layout */
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 100%;  /* Ensure app container is responsive */
   padding: 2rem;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .logo {

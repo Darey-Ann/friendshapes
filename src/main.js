@@ -111,6 +111,12 @@ function init() {
 }
 
 function addTitleText() {
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+    document.body.style.height = '100%';
+    document.body.style.overflow = 'hidden';
+
+
     const title = document.createElement('div');
     title.innerHTML = `
         <h1 style="text-align: left; font-size: 2rem; font-family: Inter, sans-serif; color: #333; margin-bottom: 0.2rem;">Friend Shapes</h1>
@@ -118,8 +124,8 @@ function addTitleText() {
     `; 
     title.style.position = 'absolute';
     title.style.top = '20px';
-    title.style.left = '20%';
-    title.style.transform = 'translateX(-50%)';
+    title.style.left = '5%';
+    //title.style.transform = 'translateX(-50%)';
     title.style.pointerEvents = 'none';
     document.body.appendChild(title);
     
@@ -135,8 +141,8 @@ function addTitleText() {
     `;
     controlInfoBox.style.position = 'absolute';
     controlInfoBox.style.top = '120px';  // Position below the title
-    controlInfoBox.style.left = '15%';
-    controlInfoBox.style.transform = 'translateX(-85%)';
+    controlInfoBox.style.left = '5%';
+    //controlInfoBox.style.transform = 'translateX(-85%)';
 
     controlInfoBox.style.backgroundColor = '#fff';
     controlInfoBox.style.border = '0.5px solid #ddd';
