@@ -18,7 +18,6 @@
         const scriptOrbitControls = document.createElement('script');
         scriptOrbitControls.src = 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js';
         scriptOrbitControls.onload = () => {
-          window.OrbitControls = OrbitControls;
           // Initialize OrbitControls only after it has been loaded
           console.log('OrbitControls loaded');
         };
@@ -28,7 +27,6 @@
         const scriptSTLExporter = document.createElement('script');
         scriptSTLExporter.src = 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/exporters/STLExporter.js';
         scriptSTLExporter.onload = () => {
-          window.STLExporter = STLExporter;
           // Initialize STLExporter only after it has been loaded
           console.log('STLExporter loaded');
         };
