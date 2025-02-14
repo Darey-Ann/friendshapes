@@ -6,11 +6,11 @@ export default defineConfig({
     rollupOptions: {
       external: [], // Force everything to bundle
     },
-    commonjsOptions: {
-      transformMixedEsModules: true, // Fixes issues with Three.js
-    },
+    //commonjsOptions: {
+    //  transformMixedEsModules: true, // Fixes issues with Three.js
+    //},
   },
   optimizeDeps: {
-    include: ['three'], // Force Vite to pre-bundle Three.js
+    include: ['three', 'lil-gui'], // Force Vite to pre-bundle Three.js
   },
 });
