@@ -116,32 +116,18 @@ function addTitleText() {
     document.body.style.height = '100%';
     document.body.style.overflow = 'hidden';
 
-
-    // create Title Text
+    // Create Title text
     const title = document.createElement('div');
     title.innerHTML = `
-        <p style="text-align: left; font-size: 2rem; font-family: Inter, sans-serif; color: #333; margin-bottom: 0.2rem;"><strong>Friend Shapes</strong>
+        <h1 style="text-align: left; font-size: 2rem; font-family: Inter, sans-serif; color: #333; margin-bottom: 0.2rem;">Friend Shapes</h1>
         <p style="text-align: left; font-size: 1.0rem; font-family: Inter, sans-serif; color: #666;margin-top: 0; margin-bottom: 0;">Use the sliders to create a safe and trustworthy shape</p>
-        </p>
-    `;
+    `; 
     title.style.position = 'absolute';
-    title.style.top = '20px';  // Positioned at the top
-    title.style.left = '5%';   // Positioned at the left
-    title.style.zIndex = '9999';  // Ensures it's above other content
+    title.style.top = '20px';
+    title.style.left = '5%';
+    //title.style.transform = 'translateX(-50%)';
+    //title.style.pointerEvents = 'none';
     document.body.appendChild(title);
-
-
-    //const title = document.createElement('div');
-    //title.innerHTML = `
-    //    <h1 style="text-align: left; font-size: 2rem; font-family: Inter, sans-serif; color: #333; margin-bottom: 0.2rem;">Friend Shapes</h1>
-    //    <p style="text-align: left; font-size: 1.0rem; font-family: Inter, sans-serif; color: #666;margin-top: 0; margin-bottom: 0;">Use the sliders to create a safe and trustworthy shape</p>
-    //`; 
-    //title.style.position = 'absolute';
-    //title.style.top = '20px';
-    //title.style.left = '5%';
-    ////title.style.transform = 'translateX(-50%)';
-    ////title.style.pointerEvents = 'none';
-    //document.body.appendChild(title);
     
     // Create the infobox for OrbitControls instructions
     const controlInfoBox = document.createElement('div');
