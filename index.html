@@ -14,12 +14,30 @@
       window.THREE = THREE;  // Expose THREE to the global window object
     </script>
 
-    <!-- Now load OrbitControls.js as a regular script, after THREE.js -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js"></script>
-    
-    <!-- Now load STLExporter.js as a regular script, after THREE.js -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/exporters/STLExporter.js"></script>
-    
+   <!-- Wait for THREE.js to be ready before loading OrbitControls -->
+    <script>
+      if (window.THREE) {
+        const scriptOrbitControls = document.createElement('script');
+        scriptOrbitControls.src = 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitControls.js';
+        scriptOrbitControls.onload = () => {
+          // Initialize OrbitControls only after it has been loaded
+          console.log('OrbitControls loaded');
+        };
+        document.head.appendChild(scriptOrbitControls);
+  
+        // Similarly, load STLExporter
+        const scriptSTLExporter = document.createElement('script');
+        scriptSTLExporter.src = 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/exporters/STLExporter.js';
+        scriptSTLExporter.onload = () => {
+          // Initialize STLExporter only after it has been loaded
+          console.log('STLExporter loaded');
+        };
+        document.head.appendChild(scriptSTLExporter);
+      } else {
+        console.error('THREE.js is not loaded');
+      }
+    </script>
+
     <!-- Import GUI as a module -->
     <script type="module">
       import { GUI } from 'https://cdn.jsdelivr.net/npm/lil-gui@0.16.0/dist/lil-gui.esm.js';
