@@ -68,7 +68,7 @@ function init() {
     document.body.appendChild(renderer.domElement);
 
     // Orbit Controls
-    controls = new OrbitControls(camera, renderer.domElement);
+    controls = new window.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     
     // Add Grid Helper (Light Grey Grid)
@@ -251,7 +251,7 @@ function updateSuperquadric() {
 function exportSTL() {
     exportSettings(); // Save slider values before exporting STL
 
-    const exporter = new STLExporter();
+    const exporter = new window.STLExporter();
     const stlString = exporter.parse(mesh);
     const blob = new Blob([stlString], { type: 'application/octet-stream' });
     const link = document.createElement('a');
