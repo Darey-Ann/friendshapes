@@ -12,5 +12,5 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['three', 'lil-gui'], // Force Vite to pre-bundle Three.js
-  },
+  }
 });
