@@ -1,7 +1,7 @@
-import * as THREE from 'three';
-import { GUI } from 'lil-gui';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { STLExporter } from 'three/examples/jsm/exporters/STLExporter.js';
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@latest/build/three.module.min.js";
+import { GUI } from "https://cdn.jsdelivr.net/npm/lil-gui@latest/dist/lil-gui.esm.min.js";
+import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/controls/OrbitControls.js";
+import { STLExporter } from "https://cdn.jsdelivr.net/npm/three@latest/examples/jsm/exporters/STLExporter.js";
 
 console.log("Vite is running!");
 
