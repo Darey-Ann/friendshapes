@@ -4,13 +4,12 @@ export default defineConfig({
   base: '/friendshapes/', // Ensure correct paths on GitHub Pages
   build: {
     rollupOptions: {
-      external: [], // Force everything to bundle
+      output: {
+        manualChunks: undefined, // Ensures everything is bundled together
+      },
     },
-    //commonjsOptions: {
-    //  transformMixedEsModules: true, // Fixes issues with Three.js
-    //},
-    optimizeDeps: {
-      include: ['three', 'lil-gui'], // Force Vite to pre-bundle Three.js
-    }
   },
+  optimizeDeps: {
+    include: ['three', 'lil-gui'], // Ensure Vite pre-bundles these dependencies
+  }
 });
