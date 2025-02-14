@@ -32,8 +32,8 @@ import 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/controls/OrbitCon
 
 
 //import { STLExporter } from 'three/examples/jsm/exporters/STLExporter.js';
-import { STLExporter } from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/exporters/STLExporter.js';
-//import 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/exporters/STLExporter.js';
+//import { STLExporter } from 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/exporters/STLExporter.js';
+import 'https://cdn.jsdelivr.net/npm/three@0.146.0/examples/js/exporters/STLExporter.js';
 
 console.log("Vite is running!");
 
