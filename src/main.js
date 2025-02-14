@@ -68,7 +68,7 @@ function init() {
     document.body.appendChild(renderer.domElement);
 
     // Orbit Controls
-    controls = new window.OrbitControls(camera, renderer.domElement);
+    controls = new window.THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     
     // Add Grid Helper (Light Grey Grid)
