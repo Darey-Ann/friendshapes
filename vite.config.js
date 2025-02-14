@@ -1,10 +1,13 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/friendshapes/', // Ensures correct paths for GitHub Pages
+  base: '/friendshapes/', // Ensure correct paths on GitHub Pages
   build: {
     rollupOptions: {
-      external: [] // Ensures everything (including three.js) is bundled properly
-    }
-  }
+      external: [], // Ensure everything is bundled
+    },
+    commonjsOptions: {
+      transformMixedEsModules: true, // Fixes issues with some modules like Three.js
+    },
+  },
 });
