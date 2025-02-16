@@ -295,13 +295,13 @@ function updateSuperquadric() {
 function exportSTL() {
     exportSettings(); // Save slider values before exporting STL
 
-    const exporter = new window.THREE.STLExporter();
-    const stlString = exporter.parse(mesh);
-    const blob = new Blob([stlString], { type: 'application/octet-stream' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'friendshape.stl';
-    link.click();
+    //const exporter = new window.THREE.STLExporter();
+    //const stlString = exporter.parse(mesh);
+    //const blob = new Blob([stlString], { type: 'application/octet-stream' });
+    //const link = document.createElement('a');
+    //link.href = URL.createObjectURL(blob);
+    //link.download = 'friendshape.stl';
+    //link.click();
 }
 
 function exportSettings() {
