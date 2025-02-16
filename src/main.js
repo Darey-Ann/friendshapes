@@ -157,7 +157,7 @@ function addTitleText() {
     const note = document.createElement('div');
     note.innerHTML = `
         <p style="text-align: right; font-size: 0.7rem; font-family: Inter, sans-serif; color: #333; background-color: #fff; padding: 10px; border: ">
-            <em>* When you're finished, please click "Export Friendshape" to save your .stl and .txt files,<br>and then send them to Darey-Ann! Thank you 🤍
+            <em>* When you're finished, please click "Export Friendshape" to save your file, and then send it to Darey-Ann! Thank you 🤍
         </p>
     `;
     note.style.position = 'fixed';
