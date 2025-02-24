@@ -72,7 +72,7 @@ function init() {
     // Add Grid Helper (Light Grey Grid)
     const gridHelper = new THREE.GridHelper(50, 50, 0xcccccc, 0xeeeeee);
     scene.add(gridHelper);
-    gridHelper.position.y = -3;  // Move the grid 5 units down
+    gridHelper.position.y = -8;  // pOSITIOIN OF THE GRID -- Move the grid 5 units down
     
     // Add Lights
     scene.add(new THREE.AmbientLight(0xffffff, 0.5));
@@ -102,6 +102,11 @@ function init() {
 
     gui.add(params, 'wireframe').onChange(updateSuperquadric);
     gui.add({ exportSTL }, 'exportSTL').name('Export Friendshape');
+    // Add the "Download Image" button to your GUI
+    gui.add({ downloadImage }, 'downloadImage').name('Download Image');
+
+    gui.add({ downloadGIF }, 'downloadGIF').name('Download GIF');
+
 
     // Window Resize Handling
     window.addEventListener('resize', onWindowResize);
@@ -288,20 +293,20 @@ function updateSuperquadric() {
   const geometry = generateSuperquadricGeometry(params.roundness, params.stretch, params.size, params.randomness, params.spikiness);
   const material = new THREE.MeshStandardMaterial({ color: params.color, wireframe: params.wireframe });
   mesh = new THREE.Mesh(geometry, material);
-  mesh.position.y = params.size - 2; // position of the object
+  mesh.position.y = params.size - 7; // position of the object
   scene.add(mesh);
 }
 
 function exportSTL() {
     exportSettings(); // Save slider values before exporting STL
 
-    //const exporter = new window.THREE.STLExporter();
-    //const stlString = exporter.parse(mesh);
-    //const blob = new Blob([stlString], { type: 'application/octet-stream' });
-    //const link = document.createElement('a');
-    //link.href = URL.createObjectURL(blob);
-    //link.download = 'friendshape.stl';
-    //link.click();
+    const exporter = new window.THREE.STLExporter();
+    const stlString = exporter.parse(mesh);
+    const blob = new Blob([stlString], { type: 'application/octet-stream' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'friendshape.stl';
+    link.click();
 }
 
 function exportSettings() {
@@ -312,6 +317,64 @@ function exportSettings() {
   link.download = 'friendshape_parameters.txt';
   link.click();
 }
+
+// Function to capture and download the image
+function downloadImage() {
+    console.log("Saving image");
+    renderer.render(scene, camera); // Ensure the renderer renders the scene
+    // Get the current canvas data URL (you can replace 'canvas' with your specific canvas element)
+    let canvas = document.querySelector('canvas'); // Make sure you select your actual canvas
+
+
+    let dataURL = canvas.toDataURL('image/png'); // You can change the format to 'image/jpeg' if needed
+    
+    // Create a temporary link element to trigger the download
+    let link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'friendshape.png'; // You can customize the filename here
+    
+    // Simulate a click on the link to trigger the download
+    link.click();
+}
+
+function downloadGIF() {
+    console.log("Saving GIF");
+    let frames = [];
+    let canvas = document.querySelector('canvas'); // Select your canvas
+
+    const totalFrames = 60; // Increase this for smoother animation
+    const rotationAmount = - (Math.PI * 2) / totalFrames; // Full rotation spread across frames, - for CW
+
+    // Capture more frames for smoother motion
+    for (let i = 0; i < totalFrames; i++) {
+        renderer.render(scene, camera); // Render the scene
+        context.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas for transparency
+        frames.push(canvas.toDataURL('image/png')); // Capture frame
+        scene.rotation.y += rotationAmount; // Smooth rotation increment
+    }
+
+    // Create GIF using gifshot
+    gifshot.createGIF({
+        images: frames,
+        interval: 0.01, //0.15, // Slower speed (higher number = slower GIF)
+        gifWidth: canvas.width,
+        gifHeight: canvas.height
+    }, function (obj) {
+        if (!obj.error) {
+            let link = document.createElement('a');
+            link.href = obj.image; // Base64 GIF
+            link.download = 'friendshape.gif';
+            link.click();
+        } else {
+            console.error('GIF creation failed:', obj.error);
+        }
+    });
+}
+
+
+  
+  
+
 
 
 
