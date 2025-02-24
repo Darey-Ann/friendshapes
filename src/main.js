@@ -348,7 +348,7 @@ function downloadGIF() {
     // Capture more frames for smoother motion
     for (let i = 0; i < totalFrames; i++) {
         renderer.render(scene, camera); // Render the scene
-        context.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas for transparency
+        //context.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas for transparency -- doesn't work
         frames.push(canvas.toDataURL('image/png')); // Capture frame
         scene.rotation.y += rotationAmount; // Smooth rotation increment
     }
